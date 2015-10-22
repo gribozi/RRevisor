@@ -17,7 +17,7 @@ public class Restaurant implements Comparable<Object> {
 		raitService = rRaitService;
 	}
 	
-	// Уточнить, правильно ли создавать разные конструкторы под разные варианты (например при генерации из БД)
+	// РЈС‚РѕС‡РЅРёС‚СЊ, РїСЂР°РІРёР»СЊРЅРѕ Р»Рё СЃРѕР·РґР°РІР°С‚СЊ СЂР°Р·РЅС‹Рµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹ РїРѕРґ СЂР°Р·РЅС‹Рµ РІР°СЂРёР°РЅС‚С‹ (РЅР°РїСЂРёРјРµСЂ РїСЂРё РіРµРЅРµСЂР°С†РёРё РёР· Р‘Р”)
 	public Restaurant(int rId, String rName, String rReview, byte rRaitCuisine, byte rRaitInterior, byte rRaitService) {
 		id = rId;
 		name = rName;
@@ -26,7 +26,7 @@ public class Restaurant implements Comparable<Object> {
 		raitInterior = rRaitInterior;
 		raitService = rRaitService;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -38,9 +38,11 @@ public class Restaurant implements Comparable<Object> {
 	public String getReview() {
 		return review.replaceAll("\n", "<br />");
 	}
+	
 	public String getReviewAdm() {
 		return review;
 	}
+	
 	public byte getRaitCuisine() {
 		return raitCuisine;
 	}
@@ -52,7 +54,7 @@ public class Restaurant implements Comparable<Object> {
 	public byte getRaitService() {
 		return raitService;
 	}
-
+	
 	public String getGeo() {
 		return geo;
 	}
@@ -61,45 +63,45 @@ public class Restaurant implements Comparable<Object> {
 		float RaitTotal = (float) (raitCuisine * 0.4 + raitInterior * 0.3 + raitService * 0.3);
 		return RaitTotal;
 	}
-
+	
 	@Override
 	public int compareTo(Object rest) {
 		
 		Restaurant tmp = (Restaurant)rest;
 		
-		// Так как сортировка обратная, меняем местами знаки сравнивания
+		// РўР°Рє РєР°Рє СЃРѕСЂС‚РёСЂРѕРІРєР° РѕР±СЂР°С‚РЅР°СЏ, РјРµРЅСЏРµРј РјРµСЃС‚Р°РјРё Р·РЅР°РєРё СЃСЂР°РІРЅРёРІР°РЅРёСЏ
 		
 		if (this.getRaitTotal() < tmp.getRaitTotal()) {
-			/* текущее меньше полученного */
+			/* С‚РµРєСѓС‰РµРµ РјРµРЅСЊС€Рµ РїРѕР»СѓС‡РµРЅРЅРѕРіРѕ */
 			return 1;
-	    }
-	    else if (this.getRaitTotal() > tmp.getRaitTotal())
-	    {
-	    	/* текущее больше полученного */
-	    	return -1;
-	    }
+		}
+		else if (this.getRaitTotal() > tmp.getRaitTotal())
+		{
+			/* С‚РµРєСѓС‰РµРµ Р±РѕР»СЊС€Рµ РїРѕР»СѓС‡РµРЅРЅРѕРіРѕ */
+			return -1;
+		}
 		
-    	/* текущее равно полученному */
-    	return 0;  
+		/* С‚РµРєСѓС‰РµРµ СЂР°РІРЅРѕ РїРѕР»СѓС‡РµРЅРЅРѕРјСѓ */
+		return 0;  
 	}
-
-
-/*	Реализация сортировки списка через локальное определение компоратора
-	Ппроизоводится во внешнем модуле, обычно прямо перед сортировкой)  
- 		
+	
+	
+/*	Р РµР°Р»РёР·Р°С†РёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё СЃРїРёСЃРєР° С‡РµСЂРµР· Р»РѕРєР°Р»СЊРЅРѕРµ РѕРїСЂРµРґРµР»РµРЅРёРµ РєРѕРјРїРѕСЂР°С‚РѕСЂР°
+	РџРїСЂРѕРёР·РѕРІРѕРґРёС‚СЃСЏ РІРѕ РІРЅРµС€РЅРµРј РјРѕРґСѓР»Рµ, РѕР±С‹С‡РЅРѕ РїСЂСЏРјРѕ РїРµСЂРµРґ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№)
+	
 	Collections.sort(restlList, new Comparator<Restaurant>() {
 		@Override
 		public int compare(Restaurant rest1, Restaurant rest2) {
 			Float rait1 = (Float) rest1.getRaitTotal();
 			Float rait2 = (Float) rest2.getRaitTotal();
 			
-			// Так как сортировка обратная, меняем местами rait1 и rait2
+			// РўР°Рє РєР°Рє СЃРѕСЂС‚РёСЂРѕРІРєР° РѕР±СЂР°С‚РЅР°СЏ, РјРµРЅСЏРµРј РјРµСЃС‚Р°РјРё rait1 Рё rait2
 			return rait2.compareTo(rait1);
 		}
 	});
-
+	
 */
 
-// Collections.sort(restList);	
+// Collections.sort(restList);
 
 }

@@ -17,15 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/RestList")
 public class RestList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RestList() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RestList() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -33,42 +33,42 @@ public class RestList extends HttpServlet {
 		
 		ArrayList<Restaurant> restList = dbWork.getAllRestaurants("total_rating");
 		
-		// Готовим параметр для передачи в jsp-файл
+		// Р“РѕС‚РѕРІРёРј РїР°СЂР°РјРµС‚СЂ РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ jsp-С„Р°Р№Р»
 		request.setAttribute("restList", restList);
-
-		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ С„РѕСЂРјРёСЂСѓРµРјС‹Р№ СЃРµСЂРІР»РµС‚РѕРј HTML-РєРѕРґ
 		// response.setContentType("text/html; charset=utf-8");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		getServletContext().getRequestDispatcher("/rest-list.jsp").forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Restaurant> restList;
 		
-		// Указание кодировки, в которой поступают в сервлет данные, отправленные пользователем
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РїРѕСЃС‚СѓРїР°СЋС‚ РІ СЃРµСЂРІР»РµС‚ РґР°РЅРЅС‹Рµ, РѕС‚РїСЂР°РІР»РµРЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
 		request.setCharacterEncoding("utf-8");
 		
-		// Если обрабатываем POST-запрос поиска
+		// Р•СЃР»Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј POST-Р·Р°РїСЂРѕСЃ РїРѕРёСЃРєР°
 		if (request.getParameter("queary") != null) {
 			restList = dbWork.getAllRestaurantsBySearch(request.getParameter("queary"));
 		}
-		// Если обрабатываеми POST-запрос сортировки
+		// Р•СЃР»Рё РѕР±СЂР°Р±Р°С‚С‹РІР°РµРјРё POST-Р·Р°РїСЂРѕСЃ СЃРѕСЂС‚РёСЂРѕРІРєРё
 		else {
 			restList = dbWork.getAllRestaurants(request.getParameter("sort"));
 		}
 		
-		// Готовим параметры для передачи в jsp-файл
+		// Р“РѕС‚РѕРІРёРј РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ jsp-С„Р°Р№Р»
 		request.setAttribute("restList", restList);
 		request.setAttribute("quearyFromPost", request.getParameter("queary"));
 		request.setAttribute("sortFromPost", request.getParameter("sort"));
 		
-		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ С„РѕСЂРјРёСЂСѓРµРјС‹Р№ СЃРµСЂРІР»РµС‚РѕРј HTML-РєРѕРґ
 		// response.setContentType("text/html; charset=utf-8");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		getServletContext().getRequestDispatcher("/rest-list.jsp").forward(request, response);
 	}
-
+	
 }

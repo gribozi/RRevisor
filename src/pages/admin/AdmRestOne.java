@@ -16,35 +16,39 @@ import main.*;
 @WebServlet("/AdmRestOne")
 public class AdmRestOne extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdmRestOne() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AdmRestOne() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Заложим возможность открывать в админке страницу одного ресторана через GET-запрос
+		// Р—Р°Р»РѕР¶РёРј РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС‚РєСЂС‹РІР°С‚СЊ РІ Р°РґРјРёРЅРєРµ СЃС‚СЂР°РЅРёС†Сѓ РѕРґРЅРѕРіРѕ СЂРµСЃС‚РѕСЂР°РЅР° С‡РµСЂРµР· GET-Р·Р°РїСЂРѕСЃ
 		
-		// Получаем параметр (id ресторана), который был передан в сервлет из адресной строки
+		// РџРѕР»СѓС‡Р°РµРј РїР°СЂР°РјРµС‚СЂ (id СЂРµСЃС‚РѕСЂР°РЅР°), РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» РїРµСЂРµРґР°РЅ РІ СЃРµСЂРІР»РµС‚ РёР· Р°РґСЂРµСЃРЅРѕР№ СЃС‚СЂРѕРєРё
 		int restId = (int)Integer.parseInt(request.getParameter("rest"));
 		
 		Restaurant restOne = dbWork.getRestaurant(restId);
 		
-		// Готовим параметр для передачи в jsp-файл
+		// Р“РѕС‚РѕРІРёРј РїР°СЂР°РјРµС‚СЂ РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ jsp-С„Р°Р№Р»
 		request.setAttribute("restOne", restOne);
-
-		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		
+		//// Р§РёС‚Р°РµРј РёР»Рё СЃС‡РёС‚Р°РµРј С„РѕС‚РєРё РёР· РїР°РїРєРё СЂРµСЃС‚РѕСЂР°РЅР°
+		//// filesWork.readPhoto(restId);
+		//// request.setAttribute("aAa", bBb);
+		
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ С„РѕСЂРјРёСЂСѓРµРјС‹Р№ СЃРµСЂРІР»РµС‚РѕРј HTML-РєРѕРґ
 		// response.setContentType("text/html; charset=utf-8");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		getServletContext().getRequestDispatcher("/adm-rest-one.jsp").forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -53,46 +57,58 @@ public class AdmRestOne extends HttpServlet {
 		boolean savedOK;
 		String operationType = "";
 		
-		// Указание кодировки, в которой поступают в сервлет данные, отправленные пользователем (актуально для POST-запросов с русск. парам.)
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РїРѕСЃС‚СѓРїР°СЋС‚ РІ СЃРµСЂРІР»РµС‚ РґР°РЅРЅС‹Рµ, РѕС‚РїСЂР°РІР»РµРЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј (Р°РєС‚СѓР°Р»СЊРЅРѕ РґР»СЏ POST-Р·Р°РїСЂРѕСЃРѕРІ СЃ СЂСѓСЃСЃРє. РїР°СЂР°Рј.)
 		request.setCharacterEncoding("utf-8");
-
+		
 		String rest_name = request.getParameter("name");
 		String rest_review = request.getParameter("review");
 		Byte rest_cuisine = Byte.parseByte(request.getParameter("cuisine"));
 		Byte rest_interior = Byte.parseByte(request.getParameter("interior"));
 		Byte rest_service = Byte.parseByte(request.getParameter("service"));		
 		
-		// Если id не задан, значит обрабатываем добавление
+		// Р•СЃР»Рё id РЅРµ Р·Р°РґР°РЅ, Р·РЅР°С‡РёС‚ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј РґРѕР±Р°РІР»РµРЅРёРµ
 		if (request.getParameter("id").equals("")) {
 			rest_id = dbWork.addRestaurant(rest_name, rest_review, rest_cuisine, rest_interior, rest_service);
 			if (rest_id != 0) savedOK = true;
 			else savedOK = false;
 			
 			operationType = "add";
+			
+			//// РЎРѕР·РґР°РµРј С„РѕС‚Рѕ-РїР°РїРєСѓ РґР»СЏ РґРѕР±Р°РІР»СЏРµРјРѕРіРѕ СЂРµСЃС‚РѕСЂР°РЅР°
+			//// filesWork.createFolder(rest_id);
 		}
-		// Если есть id, значит это обрабатываем редактирование
+		// Р•СЃР»Рё РµСЃС‚СЊ id, Р·РЅР°С‡РёС‚ СЌС‚Рѕ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ
 		else {
 			rest_id = Integer.parseInt(request.getParameter("id"));
-
+			
 			savedOK = dbWork.editRestaurant(rest_id, rest_name, rest_review, rest_cuisine, rest_interior, rest_service);
 			
 			operationType = "edit";
+			
+			//// РџСЂРёРЅРёРјР°РµРј С„РѕС‚РѕРіСЂР°С„РёРё, РѕС‚РїСЂР°РІР»РµРЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
+			//// String photo = request.getParameter("photo");
+			//// filesWork.savePhoto(photo);
+			
+			
+			//// Р§РёС‚Р°РµРј РёР»Рё СЃС‡РёС‚Р°РµРј С„РѕС‚РєРё РёР· РїР°РїРєРё СЂРµСЃС‚РѕСЂР°РЅР°
+			//// filesWork.readPhoto(restId);
+			//// request.setAttribute("aAa", bBb);			
 		}
 		
-		// Теперь выведем отредактированный или добавленный ресторан
+		// РўРµРїРµСЂСЊ РІС‹РІРµРґРµРј РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРЅС‹Р№ РёР»Рё РґРѕР±Р°РІР»РµРЅРЅС‹Р№ СЂРµСЃС‚РѕСЂР°РЅ
 		
 		Restaurant restOne = dbWork.getRestaurant(rest_id);
 		
-		// Готовим параметры для передачи в jsp-файл
+		// Р“РѕС‚РѕРІРёРј РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ jsp-С„Р°Р№Р»
 		request.setAttribute("restOne", restOne);
 		request.setAttribute("savedOK", savedOK);
 		request.setAttribute("operationType", operationType);
 		
-		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ С„РѕСЂРјРёСЂСѓРµРјС‹Р№ СЃРµСЂРІР»РµС‚РѕРј HTML-РєРѕРґ
 		// response.setContentType("text/html; charset=utf-8");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		getServletContext().getRequestDispatcher("/adm-rest-one.jsp").forward(request, response);		
-
+		
 	}
-
+	
 }

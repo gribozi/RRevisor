@@ -155,11 +155,12 @@ a.mode:hover {
 body.adm {
 	background-color: #ccc;
 }
-.message-adm {
-//	margin-top: 10px;
-}
 .form-admin {
 	margin-top: 15px;
+}
+.form-files-admin {
+	margin-top: 15px;
+	margin-bottom: 20px;
 }
 .restaurant {
 	margin-right: 7px;

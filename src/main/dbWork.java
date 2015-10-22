@@ -5,39 +5,39 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class dbWork {
-
-	// Возвращает соединение с БД, которое будем использовать в последующих методах
+	
+	// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРѕРµРґРёРЅРµРЅРёРµ СЃ Р‘Р”, РєРѕС‚РѕСЂРѕРµ Р±СѓРґРµРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІ РїРѕСЃР»РµРґСѓСЋС‰РёС… РјРµС‚РѕРґР°С…
 	private static Connection getDBConnection() throws Exception {
 		
 		String JDBC_DRIVER = "org.gjt.mm.mysql.Driver";
 		String DB_URL = "jdbc:mysql://localhost/revisor";
 		
-		// Способ здания параметров подключения к БД через класс Properties
-		// Это нужно, что бы задать кодировку подключения, а не только логин и пароль
+		// РЎРїРѕСЃРѕР± Р·РґР°РЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р‘Р” С‡РµСЂРµР· РєР»Р°СЃСЃ Properties
+		// Р­С‚Рѕ РЅСѓР¶РЅРѕ, С‡С‚Рѕ Р±С‹ Р·Р°РґР°С‚СЊ РєРѕРґРёСЂРѕРІРєСѓ РїРѕРґРєР»СЋС‡РµРЅРёСЏ, Р° РЅРµ С‚РѕР»СЊРєРѕ Р»РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ
 		Properties properties = new Properties();
 		properties.setProperty("user", "root");
-	    properties.setProperty("password","root");
-	    /*
-		Настройки указывающие о необходимости конвертировать данные из Unicode
-	  	в UTF-8, который используется в нашей таблице для хранения данных
-	    */
-	    properties.setProperty("useUnicode","true");
-	    properties.setProperty("characterEncoding","UTF-8");
-	    
+		properties.setProperty("password","root");
+		/*
+		РќР°СЃС‚СЂРѕР№РєРё СѓРєР°Р·С‹РІР°СЋС‰РёРµ Рѕ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°С‚СЊ РґР°РЅРЅС‹Рµ РёР· Unicode
+		РІ UTF-8, РєРѕС‚РѕСЂС‹Р№ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ РЅР°С€РµР№ С‚Р°Р±Р»РёС†Рµ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С…
+		*/
+		properties.setProperty("useUnicode","true");
+		properties.setProperty("characterEncoding","UTF-8");
+		
 		Class.forName(JDBC_DRIVER);
 		return DriverManager.getConnection(DB_URL, properties);
-		// Обычный, простой формат Коннекшена
-		//return = DriverManager.getConnection(DB_URL, "root", "root");
+		// РћР±С‹С‡РЅС‹Р№, РїСЂРѕСЃС‚РѕР№ С„РѕСЂРјР°С‚ РљРѕРЅРЅРµРєС€РµРЅР°
+		// return = DriverManager.getConnection(DB_URL, "root", "root");
 	}
-
 	
-	// Возвращает список всех ресторанов, выбранных из БД. Параметр метода задает способ сортировки результата.
+	
+	// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РІСЃРµС… СЂРµСЃС‚РѕСЂР°РЅРѕРІ, РІС‹Р±СЂР°РЅРЅС‹С… РёР· Р‘Р”. РџР°СЂР°РјРµС‚СЂ РјРµС‚РѕРґР° Р·Р°РґР°РµС‚ СЃРїРѕСЃРѕР± СЃРѕСЂС‚РёСЂРѕРІРєРё СЂРµР·СѓР»СЊС‚Р°С‚Р°.
 	public static ArrayList<Restaurant> getAllRestaurants(String sort) {
 		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
 		
 		try {
 			Connection conn = getDBConnection();
-
+			
 			Statement stmt = conn.createStatement();
 			ResultSet rslt = null;
 			switch (sort) {
@@ -58,25 +58,25 @@ public class dbWork {
 			while (rslt.next()) {
 				list.add(new Restaurant(rslt.getInt("id"), rslt.getString("name"), rslt.getByte("cuisine_rating"), rslt.getByte("interior_rating"), rslt.getByte("service_rating")));
 			}
-
+			
 			conn.close();
 			
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			//e.printStackTrace();
 			//System.exit(0);
-	    }
+		}
 		return list; 
 	}
-
 	
-	// Возвращает список всех ресторанов, выбранных из БД и удовлетворяющих поисковому запросу
+	
+	// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РІСЃРµС… СЂРµСЃС‚РѕСЂР°РЅРѕРІ, РІС‹Р±СЂР°РЅРЅС‹С… РёР· Р‘Р” Рё СѓРґРѕРІР»РµС‚РІРѕСЂСЏСЋС‰РёС… РїРѕРёСЃРєРѕРІРѕРјСѓ Р·Р°РїСЂРѕСЃСѓ
 	public static ArrayList<Restaurant> getAllRestaurantsBySearch(String searchQuery) {
 		ArrayList<Restaurant> list = new ArrayList<Restaurant>();
 		
 		try {
 			Connection conn = getDBConnection();
-
+			
 			PreparedStatement stmt = conn.prepareStatement("SELECT id, name, cuisine_rating, interior_rating, service_rating FROM restaurants WHERE name LIKE ? OR review LIKE ?");
 			stmt.setString(1, "%" + searchQuery + "%");
 			stmt.setString(2, "%" + searchQuery + "%");
@@ -85,19 +85,19 @@ public class dbWork {
 			while (rslt.next()) {
 				list.add(new Restaurant(rslt.getInt("id"), rslt.getString("name"), rslt.getByte("cuisine_rating"), rslt.getByte("interior_rating"), rslt.getByte("service_rating")));
 			}
-
+			
 			conn.close();
 			
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			//e.printStackTrace();
 			//System.exit(0);
-	    }
-		return list; 
+		}
+		return list;
 	}
 	
 	
-	// Возвращает один заданный ресторан, выбранный из БД
+	// Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕРґРёРЅ Р·Р°РґР°РЅРЅС‹Р№ СЂРµСЃС‚РѕСЂР°РЅ, РІС‹Р±СЂР°РЅРЅС‹Р№ РёР· Р‘Р”
 	public static Restaurant getRestaurant(int id) {
 		Restaurant selectedRest = null;
 		
@@ -107,31 +107,31 @@ public class dbWork {
 			PreparedStatement stmt = conn.prepareStatement("SELECT id, name, review, cuisine_rating, interior_rating, service_rating FROM restaurants WHERE id = ?");
 			stmt.setInt(1, id);
 			ResultSet rslt = stmt.executeQuery();
-			// Изначально курсор расположен непосредственно перед первой строкой объекта ResultSet. 
-			// Первый вызов метода next() устанавливает курсор на первой строке и делает ее текущей.
+			// РР·РЅР°С‡Р°Р»СЊРЅРѕ РєСѓСЂСЃРѕСЂ СЂР°СЃРїРѕР»РѕР¶РµРЅ РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ РїРµСЂРµРґ РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРѕР№ РѕР±СЉРµРєС‚Р° ResultSet. 
+			// РџРµСЂРІС‹Р№ РІС‹Р·РѕРІ РјРµС‚РѕРґР° next() СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РєСѓСЂСЃРѕСЂ РЅР° РїРµСЂРІРѕР№ СЃС‚СЂРѕРєРµ Рё РґРµР»Р°РµС‚ РµРµ С‚РµРєСѓС‰РµР№.
 			rslt.next();
 			
 			selectedRest = new Restaurant(rslt.getInt("id"), rslt.getString("name"), rslt.getString("review"), rslt.getByte("cuisine_rating"), rslt.getByte("interior_rating"), rslt.getByte("service_rating"));
-
+			
 			conn.close();
 			
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			//e.printStackTrace();
 			//System.exit(0);
-	    }
+		}
 		
 		return selectedRest; 
 	}
 	
-
-	// Редактирует заданный ресторан а БД
+	
+	// Р РµРґР°РєС‚РёСЂСѓРµС‚ Р·Р°РґР°РЅРЅС‹Р№ СЂРµСЃС‚РѕСЂР°РЅ Р° Р‘Р”
 	public static boolean editRestaurant(int id, String name, String review, Byte cuisine, Byte interior, Byte service) {
 		boolean result = false;
-
+		
 		try {
 			Connection conn = getDBConnection();
-
+			
 			PreparedStatement stmt = conn.prepareStatement("UPDATE restaurants SET name = ?, review = ?, cuisine_rating = ?, interior_rating = ?, service_rating = ? WHERE id = ?");
 			stmt.setString(1, name);
 			stmt.setString(2, review);
@@ -148,16 +148,16 @@ public class dbWork {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			//e.printStackTrace();
 			//System.exit(0);
-	    }
+		}
 		
 		return result; 
 	}
-
 	
-	// Удаляет заданные рестораны из БД
+	
+	// РЈРґР°Р»СЏРµС‚ Р·Р°РґР°РЅРЅС‹Рµ СЂРµСЃС‚РѕСЂР°РЅС‹ РёР· Р‘Р”
 	public static boolean removeRestaurants(int[] selected_rests) {
 		boolean result = false;
-
+		
 		try {
 			Connection conn = getDBConnection();
 			
@@ -174,16 +174,16 @@ public class dbWork {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			//e.printStackTrace();
 			//System.exit(0);
-	    }
+		}
 		
 		return result; 
 	}		
-
 	
-	// Добавляет ресторан в БД
+	
+	// Р”РѕР±Р°РІР»СЏРµС‚ СЂРµСЃС‚РѕСЂР°РЅ РІ Р‘Р”
 	public static int addRestaurant(String name, String review, Byte cuisine, Byte interior, Byte service) {
 		int result = 0;
-
+		
 		try {
 			Connection conn = getDBConnection();
 			
@@ -195,7 +195,7 @@ public class dbWork {
 			stmt.setByte(5, service);
 			stmt.executeUpdate();
 			
-			// Находим id только что добавленного ресторана с помощью специального MySQL-запроса
+			// РќР°С…РѕРґРёРј id С‚РѕР»СЊРєРѕ С‡С‚Рѕ РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ СЂРµСЃС‚РѕСЂР°РЅР° СЃ РїРѕРјРѕС‰СЊСЋ СЃРїРµС†РёР°Р»СЊРЅРѕРіРѕ MySQL-Р·Р°РїСЂРѕСЃР°
 			Statement stmt2 = conn.createStatement();
 			ResultSet rslt2 = stmt2.executeQuery("SELECT LAST_INSERT_ID()");
 			rslt2.next();
@@ -207,8 +207,8 @@ public class dbWork {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			//e.printStackTrace();
 			//System.exit(0);
-	    }
+		}
 		
 		return result; 
-	}		
+	}
 }

@@ -18,51 +18,51 @@ import main.*;
 @WebServlet("/AdmRestList")
 public class AdmRestList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdmRestList() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AdmRestList() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		ArrayList<Restaurant> restList = dbWork.getAllRestaurants("total_rating");
 		Collections.sort(restList);
 		
 		request.setAttribute("restList", restList);
 		
-		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ С„РѕСЂРјРёСЂСѓРµРјС‹Р№ СЃРµСЂРІР»РµС‚РѕРј HTML-РєРѕРґ
 		// response.setContentType("text/html; charset=utf-8");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		getServletContext().getRequestDispatcher("/adm-rest-list.jsp").forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] restsCheckedStr;
-
-		// Если удаляется один ресторан (со страницы adm-rest-one.jsp)
+		
+		// Р•СЃР»Рё СѓРґР°Р»СЏРµС‚СЃСЏ РѕРґРёРЅ СЂРµСЃС‚РѕСЂР°РЅ (СЃРѕ СЃС‚СЂР°РЅРёС†С‹ adm-rest-one.jsp)
 		if (request.getParameter("id") != null) {
-			// Формируем массив из одного ресторана
+			// Р¤РѕСЂРјРёСЂСѓРµРј РјР°СЃСЃРёРІ РёР· РѕРґРЅРѕРіРѕ СЂРµСЃС‚РѕСЂР°РЅР°
 			restsCheckedStr = new String[1];
 			restsCheckedStr[0] = request.getParameter("id");
 		}
-		// Если удаляется несколько ресторанов (со страницы adm-rest-list.jsp)
+		// Р•СЃР»Рё СѓРґР°Р»СЏРµС‚СЃСЏ РЅРµСЃРєРѕР»СЊРєРѕ СЂРµСЃС‚РѕСЂР°РЅРѕРІ (СЃРѕ СЃС‚СЂР°РЅРёС†С‹ adm-rest-list.jsp)
 		else {
-			// Получение массива выбранных ресторанов, переданного из формы POST-ом
+			// РџРѕР»СѓС‡РµРЅРёРµ РјР°СЃСЃРёРІР° РІС‹Р±СЂР°РЅРЅС‹С… СЂРµСЃС‚РѕСЂР°РЅРѕРІ, РїРµСЂРµРґР°РЅРЅРѕРіРѕ РёР· С„РѕСЂРјС‹ POST-РѕРј
 			restsCheckedStr = request.getParameterValues("checked");			
 		}
 		
-		// Преобразуем массив строк в массив int для того, что бы передать из в MySQL-запрос
+		// РџСЂРµРѕР±СЂР°Р·СѓРµРј РјР°СЃСЃРёРІ СЃС‚СЂРѕРє РІ РјР°СЃСЃРёРІ int РґР»СЏ С‚РѕРіРѕ, С‡С‚Рѕ Р±С‹ РїРµСЂРµРґР°С‚СЊ РёР· РІ MySQL-Р·Р°РїСЂРѕСЃ
 		int[] restsChecketInt = new int[restsCheckedStr.length];
 		for(int i = 0; i < restsChecketInt.length; i++) {
 			restsChecketInt[i] = Integer.parseInt(restsCheckedStr[i]);
@@ -70,10 +70,10 @@ public class AdmRestList extends HttpServlet {
 		
 		boolean dellOK = dbWork.removeRestaurants(restsChecketInt);
 		
-		// Готовим параметр для передачи в jsp-файл
+		// Р“РѕС‚РѕРІРёРј РїР°СЂР°РјРµС‚СЂ РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ jsp-С„Р°Р№Р»
 		request.setAttribute("dellOK", dellOK);
 		
 		doGet(request, response);
 	}
-
+	
 }

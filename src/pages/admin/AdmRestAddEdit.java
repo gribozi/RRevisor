@@ -16,34 +16,38 @@ import main.*;
 @WebServlet("/AdmRestAddEdit")
 public class AdmRestAddEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdmRestAddEdit() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AdmRestAddEdit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// Получаем параметр (id ресторана), который был передан в сервлет из адресной строки
+		// РџРѕР»СѓС‡Р°РµРј РїР°СЂР°РјРµС‚СЂ (id СЂРµСЃС‚РѕСЂР°РЅР°), РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» РїРµСЂРµРґР°РЅ РІ СЃРµСЂРІР»РµС‚ РёР· Р°РґСЂРµСЃРЅРѕР№ СЃС‚СЂРѕРєРё
 		int rest_id = (int)Integer.parseInt(request.getParameter("id"));
 		
 		Restaurant restOne = dbWork.getRestaurant(rest_id);
 		
-		// Готовим параметр для передачи в jsp-файл
+		// Р“РѕС‚РѕРІРёРј РїР°СЂР°РјРµС‚СЂ РґР»СЏ РїРµСЂРµРґР°С‡Рё РІ jsp-С„Р°Р№Р»
 		request.setAttribute("restOne", restOne);
 		
-		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		//// Р§РёС‚Р°РµРј РёР»Рё СЃС‡РёС‚Р°РµРј С„РѕС‚РєРё РёР· РїР°РїРєРё СЂРµСЃС‚РѕСЂР°РЅР°
+		//// filesWork.readPhoto(restId);
+		//// request.setAttribute("aAa", bBb);
+		
+		// РЈРєР°Р·Р°РЅРёРµ РєРѕРґРёСЂРѕРІРєРё, РІ РєРѕС‚РѕСЂРѕР№ РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ С„РѕСЂРјРёСЂСѓРµРјС‹Р№ СЃРµСЂРІР»РµС‚РѕРј HTML-РєРѕРґ
 		// response.setContentType("text/html; charset=utf-8");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		getServletContext().getRequestDispatcher("/adm-rest-add-edit.jsp").forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -51,5 +55,5 @@ public class AdmRestAddEdit extends HttpServlet {
 		
 		getServletContext().getRequestDispatcher("/adm-rest-add-edit.jsp").forward(request, response);
 	}
-
+	
 }

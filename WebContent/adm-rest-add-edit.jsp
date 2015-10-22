@@ -77,7 +77,7 @@
 			</c:if>
 		</form>		
 			
-	    <c:if test="${(restOne.id != null) && (restOne.id <= 6)}"> <!-- Временная заглушка, что бы не выводить пустые фотки -->
+	    <c:if test="${restOne.id != null}">
 		 	<div class="gallery">
 			 	<a class="fancy" rel="group" title="Это фото 1" href="img/gallery/${restOne.id}/010-b.jpg"><img src="img/gallery/${restOne.id}/010-s.jpg" /></a>
 			 	<a class="fancy" rel="group" title="Это фото 2" href="img/gallery/${restOne.id}/020-b.jpg"><img src="img/gallery/${restOne.id}/020-s.jpg" /></a>
@@ -86,6 +86,10 @@
 			 	<a class="fancy" rel="group" title="Это фото 5" href="img/gallery/${restOne.id}/050-b.jpg"><img src="img/gallery/${restOne.id}/050-s.jpg" /></a>
 			 	<a class="fancy" rel="group" title="Это фото 6" href="img/gallery/${restOne.id}/060-b.jpg"><img src="img/gallery/${restOne.id}/060-s.jpg" /></a>
 			</div>
+			<form action="AdmRestOne" enctype="multipart/form-data" method="post" class="form-files-admin">
+				<input type="file" name="photo" multiple accept="image/*,image/jpeg">
+				<input type="submit" value="Отправить">
+ 			</form>
 	    </c:if>
 	    			
 	 	<a class="link" href="AdmRestList">Список ресторанов</a>

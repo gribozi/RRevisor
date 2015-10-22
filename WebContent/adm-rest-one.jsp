@@ -64,7 +64,7 @@
 	 	</div>
 	 	<p class="review">${restOne.review}</p>
 	 	<c:choose>
-	 		<c:when test="${((operationType == 'edit') || (operationType == null)) && (restOne.id <= 6)}"> <!-- Временная заглушка, что бы не выводить пустые фотки -->
+	 		<c:when test="${(operationType == 'edit') || (operationType == null)}">
 			 	<div class="gallery">
 				 	<a class="fancy" rel="group" title="Это фото 1" href="img/gallery/${restOne.id}/010-b.jpg"><img src="img/gallery/${restOne.id}/010-s.jpg" /></a>
 				 	<a class="fancy" rel="group" title="Это фото 2" href="img/gallery/${restOne.id}/020-b.jpg"><img src="img/gallery/${restOne.id}/020-s.jpg" /></a>
