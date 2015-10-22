@@ -36,9 +36,11 @@ public class Restaurant implements Comparable<Object> {
 	}
 	
 	public String getReview() {
+		return review.replaceAll("\n", "<br />");
+	}
+	public String getReviewAdm() {
 		return review;
 	}
-	
 	public byte getRaitCuisine() {
 		return raitCuisine;
 	}
@@ -80,5 +82,24 @@ public class Restaurant implements Comparable<Object> {
     	/* текущее равно полученному */
     	return 0;  
 	}
+
+
+/*	–еализаци€ сортировки списка через локальное определение компоратора
+	ѕпроизоводитс€ во внешнем модуле, обычно пр€мо перед сортировкой)  
+ 		
+	Collections.sort(restlList, new Comparator<Restaurant>() {
+		@Override
+		public int compare(Restaurant rest1, Restaurant rest2) {
+			Float rait1 = (Float) rest1.getRaitTotal();
+			Float rait2 = (Float) rest2.getRaitTotal();
+			
+			// “ак как сортировка обратна€, мен€ем местами rait1 и rait2
+			return rait2.compareTo(rait1);
+		}
+	});
+
+*/
+
+// Collections.sort(restList);	
 
 }

@@ -1,7 +1,19 @@
 jQuery(document).ready(function(){
+	
 	//jQuery("body").css("background-color", "#111");
+	
 	jQuery("a.fancy").fancybox();
-	initializeMap();
+	
+	jQuery(".restaurant").click(function() {
+	    if (jQuery(".restaurant").is(":checked")) {
+	    	jQuery("#submitbtn").attr('disabled', false); 
+	    }
+	    else {
+	    	jQuery("#submitbtn").attr('disabled', true);
+	    }
+	});
+
+	initializeMap();	
 });
 
   //-------------------------------------------------
@@ -19,7 +31,7 @@ function initializeMap() {
   new google.maps.Marker({
     position: new google.maps.LatLng(46.504387, 30.619852),
     map: map,
-    title: 'Доминион Комплект',
+    title: 'Компот',
     icon: 'img/map-pin.png'
   });
 }

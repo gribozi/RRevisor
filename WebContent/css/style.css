@@ -48,18 +48,16 @@ a, a:hover {text-decoration: none;}
 .right {float:right;}
 
 .container {
-	max-width: 960px;
-	margin: 0 auto;
-	padding: 0 10px;
+	max-width: 400px;
+	margin: 15px auto;
+	padding: 15px 15px;
+	border: 1px solid #999;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-.wrapper {
-	margin: 0 15px;
-	max-width: 400px;
-}
 a.link {
 	text-decoration: underline;
-	color: #b00;
+	color: #667;
 }
 a.link:hover {
 	text-decoration: none;
@@ -69,14 +67,29 @@ h1 {
 	font-size: 50px;
 	line-height: 56px;
 	color: #700;
-	margin-top: 10px;
 }
-
+.form-user {
+	margin-top: 15px;
+}
+a.link-help {
+	font: 11px Arial, Tahoma, sans-serif;
+	font-style: italic;
+	text-decoration: underline;
+}
+a.link-help:hover {
+	text-decoration: none;
+}
+p.help {
+	font: 12px Arial, Tahoma, sans-serif;
+}
 .rests-list {
 	margin-top: 10px;
 }
 .rests-list div {
 	display: inline-block;
+	vertical-align: middle;
+}
+.rest-name {
 	width: 85px;
 }
 .rests-list a {
@@ -84,21 +97,6 @@ h1 {
 }
 .rests-list a:hover {
 	text-decoration: none;
-}
-
-.allrates {
-	margin-top: 10px;
-}
-.rates-tabl td {
-	color: #7e4aa6;
-	padding-right: 20px;
-	vertical-align: middle;
-}
-.total {
-	font-weight: 700;
-}
-.rests-list div {
-	vertical-align: middle;
 }
 .rests-list span,
 .allrates span {
@@ -111,19 +109,103 @@ h1 {
 	height: 14px;
 	background: url(../img/star.png) repeat-x;
 }
-p.review {
+
+.allrates {
+	margin-top: 10px;
+}
+.rates-tabl td {
+	color: #7e4aa6;
+	padding-right: 10px;
+	vertical-align: middle;
+}
+.total {
+	font-weight: 700;
+}
+
+.review {
 	margin-top: 20px;
 }
 .gallery {
 	margin-top: 20px;	
 	margin-bottom: 15px;
 }
-
-.map {
-  width: 350px;
-  margin: 20px 15px;
+.social {
+	margin-top: 20px;	
+	margin-bottom: 15px;
 }
+
 .map-container {
   width: 100%;
-  height: 447px;
+  height: 300px;
+  margin: 20px 0;
+  border: 1px solid #ccc;
+}
+a.mode {
+	font-style: italic;
+	color: #339;
+	text-decoration: underline;
+}
+a.mode:hover {
+	text-decoration: none;
+}
+
+
+
+
+body.adm {
+	background-color: #ccc;
+}
+.message-adm {
+//	margin-top: 10px;
+}
+.form-admin {
+	margin-top: 15px;
+}
+.restaurant {
+	margin-right: 7px;
+}
+.btn-wrap-adm {
+	display: inline-block;
+	position: relative;
+	width: 40%;
+	height: 23px;
+}
+.btn-adm {
+	position: absolute;
+    background: -moz-linear-gradient(#aaa, #eee);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#aaa), to(#eee));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaa', endColorstr='#eee');
+	
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+    padding: 3px 7px;
+    border: 1px solid #777;
+}
+.btn-adm:hover {
+    background: -moz-linear-gradient(#ddd, #aaa);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#ddd), to(#aaa));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#aaa');
+
+	border: 1px solid #444;
+}
+.btn-adm:active {
+    top: 1px;
+}
+.btn-adm:disabled {
+    background: -moz-linear-gradient(#aaa, #ddd);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#aaa), to(#ddd));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaa', endColorstr='#ddd');
+
+    border: 1px solid #777;
+}
+.send-btn-adm {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.review-adm,
+.name-adm {
+	font: 14px/18px Arial, Tahoma, sans-serif;
+	padding: 5px 10px;
 }

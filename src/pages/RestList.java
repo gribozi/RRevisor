@@ -4,8 +4,6 @@ import main.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-//import java.util.Comparator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/RestList")
 public class RestList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,26 +31,42 @@ public class RestList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Restaurant> restList = dbWork.getAllRestaurants();
-		
-//		Реализация сортировки списка через локальное определение компоратора 
-/* 		
-		Collections.sort(restlList, new Comparator<Restaurant>() {
-			@Override
-			public int compare(Restaurant rest1, Restaurant rest2) {
-				Float rait1 = (Float) rest1.getRaitTotal();
-				Float rait2 = (Float) rest2.getRaitTotal();
-				
-				// Так как сортировка обратная, меняем местами rait1 и rait2
-				return rait2.compareTo(rait1);
-			}
-		});
-*/
-		Collections.sort(restList);
+		ArrayList<Restaurant> restList = dbWork.getAllRestaurants("total_rating");
 		
 		// Готовим параметр для передачи в jsp-файл
 		request.setAttribute("restList", restList);
+
+		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		// response.setContentType("text/html; charset=utf-8");
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		getServletContext().getRequestDispatcher("/rest-list.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<Restaurant> restList;
 		
+		// Указание кодировки, в которой поступают в сервлет данные, отправленные пользователем
+		request.setCharacterEncoding("utf-8");
+		
+		// Если обрабатываем POST-запрос поиска
+		if (request.getParameter("queary") != null) {
+			restList = dbWork.getAllRestaurantsBySearch(request.getParameter("queary"));
+		}
+		// Если обрабатываеми POST-запрос сортировки
+		else {
+			restList = dbWork.getAllRestaurants(request.getParameter("sort"));
+		}
+		
+		// Готовим параметры для передачи в jsp-файл
+		request.setAttribute("restList", restList);
+		request.setAttribute("quearyFromPost", request.getParameter("queary"));
+		request.setAttribute("sortFromPost", request.getParameter("sort"));
+		
+		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
+		// response.setContentType("text/html; charset=utf-8");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		getServletContext().getRequestDispatcher("/rest-list.jsp").forward(request, response);
 	}

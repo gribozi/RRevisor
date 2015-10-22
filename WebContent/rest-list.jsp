@@ -15,23 +15,83 @@
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
 <title>Рестораны</title>
+
+<!--[if IE]><link rel="shortcut icon" href="img/favicon.ico"><![endif]-->
+<link rel="icon" href="img/favicon.png">
+
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
 </head>
 <body>
-	<div class="wrapper">
+	<div class="container">
 		<h1>Рестораны</h1>
+		<form action="RestList" method="post" class="form-user">
+			<p><input type="search" name="queary" placeholder="Поиск по ресторанам" value="${quearyFromPost}" size="22" required>
+			<input type="submit" value="Найти"></p>
+			<c:if test="${quearyFromPost != null}">
+				<a class="link-help" href="RestList">Полный список ресторанов</a>
+			</c:if>
+		</form>
+		<form action="RestList" method="post" class="form-user">
+			<p class="help">Отсортировать все рестораны:</p>
+			<select id="sort" name="sort" onchange="this.form.submit()">
+				<c:choose>
+					<c:when test="${sortFromPost == null}">
+						<option selected>Выберите сортировку</option>
+					</c:when>
+					<c:otherwise>
+						<option disabled>Выберите сортировку</option>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${sortFromPost == 'total_rating'}">
+						<option value="total_rating" selected>по суммарному рейтингу</option>
+					</c:when>
+					<c:otherwise>
+						<option value="total_rating">по суммарному рейтингу</option>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${sortFromPost == 'cuisine_rating'}">
+						<option value="cuisine_rating" selected>по ретингу кухни</option>
+					</c:when>
+					<c:otherwise>
+						<option value="cuisine_rating">по ретингу кухни</option>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${sortFromPost == 'interior_rating'}">
+						<option value="interior_rating" selected>по рейтингу интерьера</option>
+					</c:when>
+					<c:otherwise>
+						<option value="interior_rating">по рейтингу интерьера</option>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${sortFromPost == 'service_rating'}">
+						<option value="service_rating" selected>по рейтингу обслуживания</option>
+					</c:when>
+					<c:otherwise>
+						<option value="service_rating">по рейтингу обслуживания</option>
+					</c:otherwise>
+				</c:choose>
+			</select>
+		</form>
+
 		<ul class="rests-list">
 			<c:forEach var="rest" items="${restList}">
 			<li>
-				<div><a href="RestOne?rest=${rest.id}">${rest.name}</a></div>
-				<div><span class="rate"><span style="width: ${rest.raitTotal * 100 / 5}%;"></span></span></div>
+				<div class="rest-name"><a href="RestOne?rest=${rest.id}">${rest.name}</a></div>
+				<div><span class="rate"><span style="width: ${rest.raitTotal * 100 / 5}%;" title="Общий рейтинг: ${rest.raitTotal}"></span></span></div>
 			</li>
 			</c:forEach>
 		</ul>
-	</div>
 
-    <div class="map">
 		<div class="map-container"></div>
-    </div>
 
+	 	<a class="mode" href="AdmRestList">Админка</a>
+	</div>
 </body>
 </html>
