@@ -43,7 +43,7 @@
 						<td>Кухня:</td>
 						<td>
 							<c:forEach var="i" begin="1" end="5">
-								<input type="radio" name="cuisine" required value="${i}" <c:if test="${restOne.raitCuisine == i}">checked</c:if>>
+								<input type="radio" name="cuisine" required value="${i}" <c:if test="${restOne.rateCuisine == i}">checked</c:if>>
 							</c:forEach>
 						</td>
 					</tr>
@@ -51,7 +51,7 @@
 						<td>Интерьер:</td>
 						<td>
 							<c:forEach var="i" begin="1" end="5">
-								<input type="radio" name="interior" required value="${i}" <c:if test="${restOne.raitInterior == i}">checked</c:if>>
+								<input type="radio" name="interior" required value="${i}" <c:if test="${restOne.rateInterior == i}">checked</c:if>>
 							</c:forEach>
 						</td>
 					</tr>
@@ -59,7 +59,7 @@
 						<td>Обслуживание:</td>
 						<td>
 							<c:forEach var="i" begin="1" end="5">
-								<input type="radio" name="service" required value="${i}" <c:if test="${restOne.raitService == i}">checked</c:if>>
+								<input type="radio" name="service" required value="${i}" <c:if test="${restOne.rateService == i}">checked</c:if>>
 							</c:forEach>
 						</td>
 					</tr>

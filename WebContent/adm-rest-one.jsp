@@ -46,19 +46,19 @@
 			<table class="rates-tabl">
 				<tr>
 					<td>Кухня:</td>
-					<td><span class="rate"><span style="width: ${restOne.raitCuisine * 100 / 5}%;" title="${restOne.raitCuisine}"></span></span></td>
+					<td><span class="rate"><span style="width: ${restOne.rateCuisine * 100 / 5}%;" title="${restOne.rateCuisine}"></span></span></td>
 				</tr>
 				<tr>
 					<td>Интерьер:</td>
-					<td><span class="rate"><span style="width: ${restOne.raitInterior * 100 / 5}%;" title="${restOne.raitInterior}"></span></span></td>
+					<td><span class="rate"><span style="width: ${restOne.rateInterior * 100 / 5}%;" title="${restOne.rateInterior}"></span></span></td>
 				</tr>
 				<tr>
 					<td>Обслуживание:</td>
-					<td><span class="rate"><span style="width: ${restOne.raitService * 100 / 5}%;" title="${restOne.raitService}"></span></span></td>
+					<td><span class="rate"><span style="width: ${restOne.rateService * 100 / 5}%;" title="${restOne.rateService}"></span></span></td>
 				</tr>
 				<tr>
 					<td class="total">Общий рейтинг:</td>
-					<td><span class="rate"><span style="width: ${restOne.raitTotal * 100 / 5}%;" title="${restOne.raitTotal}"></span></span></td>
+					<td><span class="rate"><span style="width: ${restOne.rateTotal * 100 / 5}%;" title="${restOne.rateTotal}"></span></span></td>
 				</tr>
 			</table>
 	 	</div>

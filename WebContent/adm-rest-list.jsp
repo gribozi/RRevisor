@@ -45,7 +45,7 @@
 				<li>
 					<div><input type="checkbox" name="checked" class="restaurant" value="${rest.id}"></div>
 					<div class="rest-name"><a href="AdmRestAddEdit?id=${rest.id}">${rest.name}</a></div>
-					<div><span class="rate"><span style="width: ${rest.raitTotal * 100 / 5}%;" title="Общий рейтинг: ${rest.raitTotal}"></span></span></div>
+					<div><span class="rate"><span style="width: ${rest.rateTotal * 100 / 5}%;" title="Общий рейтинг: ${rest.rateTotal}"></span></span></div>
 				</li>
 				</c:forEach>
 			</ul>
