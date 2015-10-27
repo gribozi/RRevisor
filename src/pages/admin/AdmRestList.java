@@ -32,7 +32,7 @@ public class AdmRestList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Restaurant> restList = dbWork.getAllRestaurants("total_rating");
+		ArrayList<Restaurant> restList = DBWork.getAllRestaurants("total_rating");
 		Collections.sort(restList);
 		
 		request.setAttribute("restList", restList);
@@ -68,7 +68,7 @@ public class AdmRestList extends HttpServlet {
 			restsChecketInt[i] = Integer.parseInt(restsCheckedStr[i]);
 		}
 		
-		boolean dellOK = dbWork.removeRestaurants(restsChecketInt);
+		boolean dellOK = DBWork.removeRestaurants(restsChecketInt);
 		
 		// Готовим параметр для передачи в jsp-файл
 		request.setAttribute("dellOK", dellOK);

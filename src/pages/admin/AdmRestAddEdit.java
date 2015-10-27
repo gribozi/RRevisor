@@ -31,9 +31,9 @@ public class AdmRestAddEdit extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Получаем параметр (id ресторана), который был передан в сервлет из адресной строки
-		int rest_id = (int)Integer.parseInt(request.getParameter("id"));
+		int restId = (int)Integer.parseInt(request.getParameter("id"));
 		
-		Restaurant restOne = dbWork.getRestaurant(rest_id);
+		Restaurant restOne = DBWork.getRestaurant(restId);
 		
 		// Готовим параметр для передачи в jsp-файл
 		request.setAttribute("restOne", restOne);

@@ -34,7 +34,7 @@ public class AdmRestOne extends HttpServlet {
 		// Получаем параметр (id ресторана), который был передан в сервлет из адресной строки
 		int restId = (int)Integer.parseInt(request.getParameter("rest"));
 		
-		Restaurant restOne = dbWork.getRestaurant(restId);
+		Restaurant restOne = DBWork.getRestaurant(restId);
 		
 		// Готовим параметр для передачи в jsp-файл
 		request.setAttribute("restOne", restOne);
@@ -53,35 +53,35 @@ public class AdmRestOne extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int rest_id = 0;
+		int restId = 0;
 		boolean savedOK;
 		String operationType = "";
 		
 		// Указание кодировки, в которой поступают в сервлет данные, отправленные пользователем (актуально для POST-запросов с русск. парам.)
 		request.setCharacterEncoding("utf-8");
 		
-		String rest_name = request.getParameter("name");
-		String rest_review = request.getParameter("review");
-		Byte rest_cuisine = Byte.parseByte(request.getParameter("cuisine"));
-		Byte rest_interior = Byte.parseByte(request.getParameter("interior"));
-		Byte rest_service = Byte.parseByte(request.getParameter("service"));		
+		String restName = request.getParameter("name");
+		String restReview = request.getParameter("review");
+		Byte restCuisine = Byte.parseByte(request.getParameter("cuisine"));
+		Byte restInterior = Byte.parseByte(request.getParameter("interior"));
+		Byte restService = Byte.parseByte(request.getParameter("service"));		
 		
 		// Если id не задан, значит обрабатываем добавление
 		if (request.getParameter("id").equals("")) {
-			rest_id = dbWork.addRestaurant(rest_name, rest_review, rest_cuisine, rest_interior, rest_service);
-			if (rest_id != 0) savedOK = true;
+			restId = DBWork.addRestaurant(restName, restReview, restCuisine, restInterior, restService);
+			if (restId != 0) savedOK = true;
 			else savedOK = false;
 			
 			operationType = "add";
 			
 			//// Создаем фото-папку для добавляемого ресторана
-			//// filesWork.createFolder(rest_id);
+			//// filesWork.createFolder(restId);
 		}
 		// Если есть id, значит это обрабатываем редактирование
 		else {
-			rest_id = Integer.parseInt(request.getParameter("id"));
+			restId = Integer.parseInt(request.getParameter("id"));
 			
-			savedOK = dbWork.editRestaurant(rest_id, rest_name, rest_review, rest_cuisine, rest_interior, rest_service);
+			savedOK = DBWork.editRestaurant(restId, restName, restReview, restCuisine, restInterior, restService);
 			
 			operationType = "edit";
 			
@@ -97,7 +97,7 @@ public class AdmRestOne extends HttpServlet {
 		
 		// Теперь выведем отредактированный или добавленный ресторан
 		
-		Restaurant restOne = dbWork.getRestaurant(rest_id);
+		Restaurant restOne = DBWork.getRestaurant(restId);
 		
 		// Готовим параметры для передачи в jsp-файл
 		request.setAttribute("restOne", restOne);

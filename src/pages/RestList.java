@@ -31,7 +31,7 @@ public class RestList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Restaurant> restList = dbWork.getAllRestaurants("total_rating");
+		ArrayList<Restaurant> restList = DBWork.getAllRestaurants("total_rating");
 		
 		// Готовим параметр для передачи в jsp-файл
 		request.setAttribute("restList", restList);
@@ -53,17 +53,18 @@ public class RestList extends HttpServlet {
 		
 		// Если обрабатываем POST-запрос поиска
 		if (request.getParameter("queary") != null) {
-			restList = dbWork.getAllRestaurantsBySearch(request.getParameter("queary"));
+			restList = DBWork.getAllRestaurantsBySearch(request.getParameter("queary"));
 		}
 		// Если обрабатываеми POST-запрос сортировки
 		else {
-			restList = dbWork.getAllRestaurants(request.getParameter("sort"));
+			restList = DBWork.getAllRestaurants(request.getParameter("sort"));
 		}
 		
 		// Готовим параметры для передачи в jsp-файл
 		request.setAttribute("restList", restList);
 		request.setAttribute("quearyFromPost", request.getParameter("queary"));
 		request.setAttribute("sortFromPost", request.getParameter("sort"));
+		// Вместо этого в jsp можно просто обращаться к переданному в сервлет параметру таким образом: ${param.sort}
 		
 		// Указание кодировки, в которой отправляется формируемый сервлетом HTML-код
 		// response.setContentType("text/html; charset=utf-8");

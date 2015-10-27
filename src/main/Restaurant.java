@@ -1,30 +1,30 @@
 package main;
 
-public class Restaurant implements Comparable<Object> {
+public class Restaurant implements Comparable<Restaurant> {
 	private int id;
 	private String name;
 	private String review;
-	private byte raitCuisine;
-	private byte raitInterior;
-	private byte raitService;
+	private byte rateCuisine;
+	private byte rateInterior;
+	private byte rateService;
 	private String geo;
 	
-	public Restaurant(int rId, String rName, byte rRaitCuisine, byte rRaitInterior, byte rRaitService) {
+	public Restaurant(int rId, String rName, byte rRateCuisine, byte rRateInterior, byte rRateService) {
 		id = rId;
 		name = rName;
-		raitCuisine = rRaitCuisine;
-		raitInterior = rRaitInterior;
-		raitService = rRaitService;
+		rateCuisine = rRateCuisine;
+		rateInterior = rRateInterior;
+		rateService = rRateService;
 	}
 	
 	// Уточнить, правильно ли создавать разные конструкторы под разные варианты (например при генерации из БД)
-	public Restaurant(int rId, String rName, String rReview, byte rRaitCuisine, byte rRaitInterior, byte rRaitService) {
+	public Restaurant(int rId, String rName, String rReview, byte rRateCuisine, byte rRateInterior, byte rRateService) {
 		id = rId;
 		name = rName;
 		review = rReview;
-		raitCuisine = rRaitCuisine;
-		raitInterior = rRaitInterior;
-		raitService = rRaitService;
+		rateCuisine = rRateCuisine;
+		rateInterior = rRateInterior;
+		rateService = rRateService;
 	}
 	
 	public int getId() {
@@ -43,39 +43,39 @@ public class Restaurant implements Comparable<Object> {
 		return review;
 	}
 	
-	public byte getRaitCuisine() {
-		return raitCuisine;
+	public byte getRateCuisine() {
+		return rateCuisine;
 	}
 	
-	public byte getRaitInterior() {
-		return raitInterior;
+	public byte getRateInterior() {
+		return rateInterior;
 	}
 	
-	public byte getRaitService() {
-		return raitService;
+	public byte getRateService() {
+		return rateService;
 	}
 	
 	public String getGeo() {
 		return geo;
 	}
 	
-	public float getRaitTotal() {
-		float RaitTotal = (float) (raitCuisine * 0.4 + raitInterior * 0.3 + raitService * 0.3);
-		return RaitTotal;
+	public float getRateTotal() {
+		float rateTotal = (float) (rateCuisine * 0.4 + rateInterior * 0.3 + rateService * 0.3);
+		return rateTotal;
 	}
 	
 	@Override
-	public int compareTo(Object rest) {
+	public int compareTo(Restaurant rest) {
 		
 		Restaurant tmp = (Restaurant)rest;
 		
 		// Так как сортировка обратная, меняем местами знаки сравнивания
 		
-		if (this.getRaitTotal() < tmp.getRaitTotal()) {
+		if (this.getRateTotal() < tmp.getRateTotal()) {
 			/* текущее меньше полученного */
 			return 1;
 		}
-		else if (this.getRaitTotal() > tmp.getRaitTotal())
+		else if (this.getRateTotal() > tmp.getRateTotal())
 		{
 			/* текущее больше полученного */
 			return -1;
@@ -92,11 +92,11 @@ public class Restaurant implements Comparable<Object> {
 	Collections.sort(restlList, new Comparator<Restaurant>() {
 		@Override
 		public int compare(Restaurant rest1, Restaurant rest2) {
-			Float rait1 = (Float) rest1.getRaitTotal();
-			Float rait2 = (Float) rest2.getRaitTotal();
+			Float rate1 = (Float) rest1.getRateTotal();
+			Float rate2 = (Float) rest2.getRateTotal();
 			
-			// Так как сортировка обратная, меняем местами rait1 и rait2
-			return rait2.compareTo(rait1);
+			// Так как сортировка обратная, меняем местами rate1 и rate2
+			return rate2.compareTo(rate1);
 		}
 	});
 	

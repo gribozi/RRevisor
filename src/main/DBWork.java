@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class dbWork {
+public class DBWork {
 	
 	// Возвращает соединение с БД, которое будем использовать в последующих методах
 	private static Connection getDBConnection() throws Exception {

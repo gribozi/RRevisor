@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.Restaurant;
-import main.dbWork;
+import main.DBWork;
 
 /**
  * Servlet implementation class RestOne
@@ -31,9 +31,9 @@ public class RestOne extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Получаем параметр (id ресторана), который был передан в сервлет из адресной строки
-		int rest_id = (int)Integer.parseInt(request.getParameter("rest"));
+		int restId = (int)Integer.parseInt(request.getParameter("rest"));
 		
-		Restaurant restOne = dbWork.getRestaurant(rest_id);
+		Restaurant restOne = DBWork.getRestaurant(restId);
 		
 		// Готовим параметр для передачи в jsp-файл
 		request.setAttribute("restOne", restOne);
