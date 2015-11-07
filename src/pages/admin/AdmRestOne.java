@@ -77,7 +77,7 @@ public class AdmRestOne extends HttpServlet {
 			//// Создаем фото-папку для добавляемого ресторана
 			//// filesWork.createFolder(restId);
 		}
-		// Если есть id, значит это обрабатываем редактирование
+		// Если есть id, значит обрабатываем редактирование
 		else {
 			restId = Integer.parseInt(request.getParameter("id"));
 			

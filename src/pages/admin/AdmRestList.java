@@ -2,7 +2,6 @@ package pages.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +32,6 @@ public class AdmRestList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Restaurant> restList = DBWork.getAllRestaurants("total_rating");
-		Collections.sort(restList);
 		
 		request.setAttribute("restList", restList);
 		
@@ -63,12 +61,12 @@ public class AdmRestList extends HttpServlet {
 		}
 		
 		// Преобразуем массив строк в массив int для того, что бы передать из в MySQL-запрос
-		int[] restsChecketInt = new int[restsCheckedStr.length];
-		for(int i = 0; i < restsChecketInt.length; i++) {
-			restsChecketInt[i] = Integer.parseInt(restsCheckedStr[i]);
+		int[] restsCheckedInt = new int[restsCheckedStr.length];
+		for(int i = 0; i < restsCheckedInt.length; i++) {
+			restsCheckedInt[i] = Integer.parseInt(restsCheckedStr[i]);
 		}
 		
-		boolean dellOK = DBWork.removeRestaurants(restsChecketInt);
+		boolean dellOK = DBWork.removeRestaurants(restsCheckedInt);
 		
 		// Готовим параметр для передачи в jsp-файл
 		request.setAttribute("dellOK", dellOK);
