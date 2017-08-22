@@ -9,7 +9,7 @@ public class DBWork {
 	// Возвращает соединение с БД, которое будем использовать в последующих методах
 	private static Connection getDBConnection() throws Exception {
 		
-		String JDBC_DRIVER = "org.gjt.mm.mysql.Driver";
+		String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 		String DB_URL = "jdbc:mysql://localhost/revisor";
 		
 		// Способ здания параметров подключения к БД через класс Properties
